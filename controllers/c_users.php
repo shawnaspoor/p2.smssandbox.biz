@@ -14,12 +14,77 @@
 		}
 
 		public function signup() {
+			#Setup the view
+			$this->template->content = View::instance('v_users_signup');
+			echo $this->template->title ="Sign Up";
+			#render the view
+			echo $this->template;
+
 			echo "This is the signup page";
 
 		}
 
+		public function p_signup() {
+			
+
+			$_POST['created'] = Time::now();
+			$_POST['password'] =sha1(PASSWORD_SALT.$_POST['password']);
+
+			$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
+ 			
+ 			#echo"<pre>";
+			#print_r($_POST);
+			#echo"<pre>";
+
+			 $users_id = DB::instance(DB_NAME)->insert("users", $_POST);
+
+			Router::redirect('/users/login');
+
+		}
+
 		public function login() {
-			echo "This is the login page";
+
+
+			#setup the view
+			$this->template->content=View::instance('v_users_login');
+			#render the view
+			echo $this->template;
+			#echo "This is the login page";
+
+
+
+		}
+
+		public function p_login() {
+
+
+ 			#echo"<pre>";
+			#print_r($_POST);
+			#echo"<pre>";
+			
+			#sanitize input to stop SQL attacks
+			$_POST = DB::instance(DB_NAME)->sanitize($_POST);
+
+			$_POST['password'] =sha1(PASSWORD_SALT.$_POST['password']);
+   				 $q = "SELECT token 
+        				FROM users 
+       				 	WHERE email = '".$_POST['email']."' 
+        				AND password = '".$_POST['password']."'";	
+
+				echo $q;
+
+			$token = DB::instance(DB_NAME)->select_field($q);
+
+			#Success
+			if($token) {
+				setcookie('token', $token, strtotime('+1 day'),'/');
+
+				echo "You are logged in";
+			}
+			#fail
+			else {
+				echo "Login failed";
+			}
 
 		}
 
@@ -27,6 +92,8 @@
 			echo "This is the logout page";
 
 		}
+
+
 
 		public function profile($user = null) {
 			#setup the view

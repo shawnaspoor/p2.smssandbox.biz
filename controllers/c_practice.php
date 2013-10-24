@@ -46,8 +46,10 @@ class practice_controller extends base_controller {
 		$_POST=DB::instance(DB_NAME)->sanitize($_POST);
 		$q = 'SELECT email
 			FROM users
-			WHERE first_name = " '.$_POST['first_name']'"';
-	}
+			WHERE first_name = ' '.$_POST['first_name'].' ';
+
+		echo $_Post;
+		}
 
 
 
