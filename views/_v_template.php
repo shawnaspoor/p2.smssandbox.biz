@@ -83,18 +83,18 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#">Now that you mention it...</a>
+            <a class="brand" href="/">Now that you mention it...</a>
             <div class="nav-collapse collapse">
               <ul class="nav">
-                <li class="active"><a href="#">Sign In</a></li>
-                <li><a href="#about">Home</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="/users/signup">Sign up</a></li>
+                <li><a href="/users/login">Log in</a></li>
+                <li><a href="/users/profile">Profile</a></li>
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Post <b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
+                    <li><a href="/posts/add">Add a new post</a></li>
+                    <li><a href="/posts/index">Feed</a></li>
+                    <li><a href="/posts/users">Peeps to follow (not marshmallows, sorry)</a></li>
                     <li class="divider"></li>
                     <li class="nav-header">Nav header</li>
                     <li><a href="#">Separated link</a></li>
@@ -119,7 +119,7 @@
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
+        <p class="muted credit">Now that you mention it...</a>.</p>
       </div>
     </div>
 
