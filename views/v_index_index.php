@@ -15,6 +15,7 @@
 				<?=$loginfrag;?>
 			</div>
 		</div>
+	<br>
 	</div>
 </div>
 

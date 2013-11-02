@@ -134,8 +134,7 @@
 
 			if(!$this->user) {
 
-				//Router::redirect('/users/login');
-				die('Members Only. <a href="/users/login">Login now</a>');
+				Router::redirect('/users/membersonly');
 			}
 
 			#setup the view
@@ -177,6 +176,20 @@
 			//	echo "This is the profile ".$user_name;
 			//}
 			
+		}
+
+		public function membersonly() {
+			#setup the view
+			$this->template->content = View::instance('v_users_membersonly');
+			 #pushing other views to this page
+			$this->template->content->loginfrag = View::instance('v_login_frag');
+			$this->template->content->signupfrag = View::instance('v_signup_frag');   		
+
+			#give the page a title
+			$this->template->title = "Members Only";
+			#display the view
+			echo $this->template;
+
 		}
 
 
