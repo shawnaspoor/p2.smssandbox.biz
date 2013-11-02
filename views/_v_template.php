@@ -37,7 +37,8 @@
         height: 60px;
       }
       #footer {
-        background-color: #f5f5f5;
+        background-color: #f2f2f2;
+
       }
 
       /* Lastly, apply responsive CSS fixes as necessary */
@@ -61,6 +62,12 @@
       }
       .container .credit {
         margin: 20px 0;
+      }
+
+      a {
+        display: inline-block;
+        padding-right: 20px;
+
       }
 
       code {
@@ -89,18 +96,16 @@
                 <li><a href="/users/signup">Sign up</a></li>
                 <li><a href="/users/login">Log in</a></li>
                 <li><a href="/users/profile">Profile</a></li>
+
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Post <b class="caret"></b></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Posts<b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="/posts/add">Add a new post</a></li>
                     <li><a href="/posts/index">Feed</a></li>
                     <li><a href="/posts/users">Peeps to follow (not marshmallows, sorry)</a></li>
-                    <li class="divider"></li>
-                    <li class="nav-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul>
+                  </ul> 
                 </li>
+                <li><a href="/users/logout">Logout</a></li>     
               </ul>
             </div><!--/.nav-collapse -->
           </div>
@@ -119,15 +124,14 @@
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">Now that you mention it...</a>.</p>
+        <p class="muted credit"><a href="#">About</a> <a href="#">Help</a> <a href="#">Privacy</a> <a href="#">Terms</a></p>
       </div>
     </div>
 
 
 
-    <!-- javascript SHAWNA!! Look into using JS for the NAV!
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- javascript - Placed at the end of the document so the pages load faster -->
+
     <script src="/js/js-bootstrap/jquery.js"></script>
     <script src="/js/js-bootstrap/bootstrap-transition.js"></script>
     <script src="/js/js-bootstrap/bootstrap-alert.js"></script>

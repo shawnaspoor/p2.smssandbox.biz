@@ -1,21 +1,26 @@
-<?php if($user): ?>
-
-	<!--
-	<pre>
-		<?php print_r($user);
-		?>
-	</pre>
-	-->
-	Hello <?=$user->first_name; ?>
-	
+<?php if($user): 
+	header("Location: /users/profile"); ?>	
 <?php else: ?>
-	<p> It doesn't look like you're logged in. If you're not a member please <a href="/users/signup">sign up</a>.</p> 
-	<p>Otherwise you're a member, logic, so login!</p>
-	<form class="form-inline">
-	  <input type="text" class="input-small" id="email" placeholder="Email">
-	  <input type="password" class="input-small" id="password" placeholder="Password">
-	  <button type="submit" class="btn btn-success">Join the party!</button>
-	</form>
+<div class="row-fluid">
+	<div class="span12">
+		<p>Connect with your friends and stay up to speed on all the stuff that doesn't really matter you dirty little hipster.</p> 
+		<p>If you're already one of the cool kids login.</p>
+
+		<div  class ="row-fluid">
+			<div class="signup span6">
+				<?=$signupfrag;?>
+			</div>
+
+			<div class="login span6">
+				<?=$loginfrag;?>
+			</div>
+		</div>
+	</div>
+</div>
+
 <?php endif; ?>
 
+
 <!-- <h1>Welcome to <?=APP_NAME?><?php if($user) echo ', '.$user->first_name; ?></h1> -->
+
+
