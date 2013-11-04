@@ -66,8 +66,8 @@
 			print_r($this->user);
 			echo"<pre>";
 
-			$data    = Array(
-				
+			$data = Array(
+
 				"user_id" => $this->user->user_id, 
 				"first_name" => $_POST['first_name'], 
 				"last_name" => $_POST['last_name'], 
@@ -77,32 +77,52 @@
 
 	        $user_id = DB::instance(DB_NAME)->update_or_insert_row("users", $data);
 			
-			
-
-			/*$q = "SELECT
-				users.first_name,
-				users.last_name,
-				users.email,
-				users.user_id
-				FROM users
-				WHERE user_id=".$this->user->user_id;
-
-				$users = DB::instance(DB_NAME)->select_rows($q);
-
-				
-
-			
-			$_POST['password'] =sha1(PASSWORD_SALT.$_POST['password']);
-
-			$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
- 			
- 			
-
-			 $user_id = DB::instance(DB_NAME)->insert("users", $_POST);*/
-
 			Router::redirect('/users/profile');
 
 		}
+
+
+		public function profile_photo () {
+
+			if ($_FILES['avatar']['error'] === false) 
+			{
+				$image = Upload::upload($_FILES, "/uploads/avatar/", array("gif", "jpeg", "jpg", "png"), $this->user->user_id);
+
+				if($image == "Invalid File Type") {
+					Router::redirect("/users/profile/error");
+				}
+			
+			else {
+
+				$data = array("avatar"=>$image);
+				DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = ".$this->user->user_id);
+
+				$imgObj = new Image(APP_PATH."/uploads/avatar/".$image);	
+				$imgObj->get_optimal_crop(180, 180);
+				$imgObj->save_image(APP_PATH."/uploads/avatar/".$image);	
+				echo $imgObj->exists(TRUE);
+				}
+			}
+			else 
+			   { 
+		       	router::redirect("/users/profile/error");  
+		       }
+
+		        // Redirect back to the profile page
+		        router::redirect('/users/profile'); 
+		    }  
+
+		    public function profile_error() {
+
+		    	$this->template->content=View::instance('v_users_profile_error');
+		    	$this->template->title = "Profile Error";
+
+		    	echo $this->template;
+		    }
+		
+	
+				
+
 	
 
 		public function login($error=NULL) {
@@ -258,3 +278,24 @@
 			else {
 				echo "This is the profile ".$user_name;
 			}			*/
+
+			/*$q = "SELECT
+				users.first_name,
+				users.last_name,
+				users.email,
+				users.user_id
+				FROM users
+				WHERE user_id=".$this->user->user_id;
+
+				$users = DB::instance(DB_NAME)->select_rows($q);
+
+				
+
+			
+			$_POST['password'] =sha1(PASSWORD_SALT.$_POST['password']);
+
+			$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
+ 			
+ 			
+
+			 $user_id = DB::instance(DB_NAME)->insert("users", $_POST);*/
