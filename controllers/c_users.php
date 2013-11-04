@@ -20,9 +20,6 @@
 			$this->template->content = View::instance('v_index_index');
 			echo $this->template->title ="Welcome Page";
 
-
-
-
 			#render the view
 			echo $this->template;
 
@@ -38,12 +35,24 @@
 			#render the view
 			echo $this->template;
 
-			
-
 		}
 
+
+
 		public function p_signup() {
-			
+
+
+			#$this->userObj->confirm_unique_email($email);
+
+
+			foreach($_POST as $field_name => $value) { 
+	            // If any field was blank, add a message to the error View variable
+	            if($value == "") {
+	                $error = true;
+	                
+	                echo 'All fields are required.';
+	            }
+	        }
 
 			$_POST['created'] = Time::now();
 			$_POST['password'] =sha1(PASSWORD_SALT.$_POST['password']);
@@ -54,11 +63,17 @@
 			#print_r($_POST);
 			#echo"<pre>";
 
+			
+
+
+
 			 $users_id = DB::instance(DB_NAME)->insert("users", $_POST);
 
 			Router::redirect('/users/login');
 
 		}
+
+
 
 		public function p_profile_update() {
 			
@@ -84,7 +99,7 @@
 
 		public function profile_photo () {
 
-			if ($_FILES['avatar']['error'] === false) 
+			if ($_FILES['avatar'] === false) 
 			{
 				$image = Upload::upload($_FILES, "/uploads/avatar/", array("gif", "jpeg", "jpg", "png"), $this->user->user_id);
 
@@ -136,8 +151,8 @@
 			#render the view
 			echo $this->template;
 
-
 		}
+
 
 		public function p_login() {
 
@@ -201,22 +216,12 @@
 
 				Router::redirect('/users/membersonly');
 			}
-			 	 echo '<pre>';
-				print_r($this->user);
-				echo '</pre>';
+			 	
+			echo '<pre>';
+			print_r($this->user);
+			echo '</pre>';
 
-			/* $q = "SELECT
-				users.first_name,
-				users.last_name,
-				users.email
-				FROM users
-				WHERE user_id=".$this->user->user_id;
-
-			$users = DB::instance(DB_NAME)->select_rows($q);
-			
-			*/
-
-           
+          
 			#setup the view
 			$this->template->content = View::instance('v_users_profile');
 			#give the page a title
@@ -298,4 +303,18 @@
  			
  			
 
-			 $user_id = DB::instance(DB_NAME)->insert("users", $_POST);*/
+			 $user_id = DB::instance(DB_NAME)->insert("users", $_POST);
+
+			 */
+
+
+			/* $q = "SELECT
+				users.first_name,
+				users.last_name,
+				users.email
+				FROM users
+				WHERE user_id=".$this->user->user_id;
+
+			$users = DB::instance(DB_NAME)->select_rows($q);
+			
+			*/
