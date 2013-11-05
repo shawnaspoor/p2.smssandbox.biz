@@ -49,7 +49,7 @@
 
 		  #Checking for blank fields
         	foreach($_POST as $field => $value) {
-            	if(empty($value))  {
+            	if(empty($value) || ctype_space($value))  {
                 	#If any fields are blank, send error message
                 	Router::redirect('/users/signup/blank-fields');  
             		}
@@ -107,7 +107,10 @@
 			#If there is an issue with the signup this will update the view
 			$this->template->content->error = $error;
 			
+			#posts feed 	
+			$this->template->content->profilepostsindex = View::instance('v_profile_posts_index');   	
 
+			#render
 			echo $this->template;
 
 
@@ -123,7 +126,7 @@
 			#echo"<pre>";
 			
 			foreach($_POST as $field => $value) {
-            	if(empty($value))  {
+            	if(empty($value)  || ctype_space($value))  {
                 	#If any fields are blank, send error message
                 	Router::redirect('/users/profile/blank-fields');  
             		}
@@ -157,23 +160,34 @@
 
 		public function profile_photo () {
 
+			#file name from user
+			$image_name = $_FILES['avatar']['name'];
+			#pulling the extension type off of the file to append to the new file name in the db
+			$file_ext 	= substr($image_name, strrpos($image_name, '.'));
+			#new image name 
+			$avatar 	=	$this->user->user_id.$file_ext;	
+
+			#upload to the /uploads/avatar directory 
+			$upload = Upload::upload($_FILES, "/uploads/avatars/", array("gif", "jpeg", "jpg", "png"), $this->user->user_id);	 
+
+			#test image compatibility
 			if ($_FILES['avatar']['error'] == 0)
 			{
-				$avatar = Upload::upload($_FILES, "/uploads/avatar/", array("gif", "jpeg", "jpg", "png"), $this->user->user_id);
-
-				if($avatar == "Invalid File Type") {
+	      			if($upload == "Invalid File Type") {
 					Router::redirect("/users/profile/error");
 				}
 			
 			else {
 
+				#associate user_id with image name in db
 				$data = Array("avatar" => $avatar);
 				DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = ".$this->user->user_id);
 
-				$imgObj = new Image(APP_PATH."uploads/avatars/".$avatar);	
+				#resize the image
+				$imgObj = new Image(APP_PATH."/uploads/avatars/".$avatar);	
 				$imgObj->get_optimal_crop(180, 180);
-				$imgObj->save_image(APP_PATH."uploads/avatars/".$avatar);	
-				echo $imgObj->exists(TRUE);
+				//$imgObj->save_image(APP_PATH."/uploads/avatars/".$avatar);	
+				echo $imgObj->display;
 				}
 			}
 			else 

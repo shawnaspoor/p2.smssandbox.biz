@@ -3,8 +3,8 @@
 	<div class="row-fluid">
 		<div class="span12">
 	    <h2>Welcome back <?=$user->first_name?>!</h2>
-		
-			<div  class ="span6 row-fluid">
+			<img src="/uploads/avatars/".$this->user->user_id />
+			<div  class ="row-fluid span6">
 	
 					<h3>Update your information here</h3>
 					<form class="form-horizontal" method='Post' action='/users/p_profile_update'>
@@ -65,24 +65,10 @@
 		 
 		 
 		 
-		<div  class ="span6 row-fluid">
+		<div  class =" row-fluid span6">
 		<h4>Post History</h4>
-		<?php foreach ($posts as $post): ?>
 
-			<article>
-
-	 		   <h3><?=$post['first_name']?> <?=$post['last_name']?> posted:</h3>
-
-	  		  <p><?=$post['content']?></p>
-
-	  		 <time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
-	        <?=Time::display($post['created'])?>
-	  		  </time>
-
-			</article>
-
-
-		<?php endforeach; ?>
+		<?=$profilepostsindex;?>
 		
 		
 		</div>

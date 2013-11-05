@@ -36,14 +36,14 @@ class posts_controller extends base_controller {
 
 	public function user_index() {
 	
-		$this->template->content = View::instance('v_posts_user_index');
-		$this->template->title = "Users post index";
+		$this->template->content = View::instance('v_profile_posts_index');
+
 		
 		$q = "SELECT
 				posts.content,
 				posts.created
 				FROM posts
-				WHERE posts.user_id= ".$this->user->user_id;
+				WHERE user_id= ".$this->user->user_id;
 		
 	
 		$posts = DB::instance(DB_NAME)->select_rows($q);
@@ -95,7 +95,8 @@ class posts_controller extends base_controller {
 
 		#pull all the users
 		$q = "SELECT *
-        	FROM users";
+        	FROM users
+        	WHERE user_id!= ".$this->user->user_id;
 
 
 		#store the results of the query into an array called $users
