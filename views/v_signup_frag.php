@@ -6,7 +6,7 @@
 	<div class="control-group">
 		<label class ="control-label" for="inputFirstName">First Name &nbsp;</label>
 		<div class="controls">
-			<input type="text"id="inputFirstName" name="first_name" placeholder="First Name">
+			<input type="text" id="inputFirstName" name="first_name" placeholder="First Name">
 		</div>
 	</div>
 	<div class="control-group">
