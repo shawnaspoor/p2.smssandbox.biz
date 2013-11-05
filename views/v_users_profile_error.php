@@ -1,1 +1,1 @@
-<h1>test</h1>
+<p>Oops. It looks like you've tried to upload an incorrect file type.</p>

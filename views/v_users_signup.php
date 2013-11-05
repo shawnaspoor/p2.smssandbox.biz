@@ -26,6 +26,25 @@
 		</div>
 	</div>
 	
+	
+	
+	 <?php if(isset($error) && $error == 'blank-fields'): ?>
+        <div>
+           <p>Oopsy. It appears you're missing required info. Please fill out all fields.</p> 
+        </div>
+        
+
+    <?php endif; ?>
+
+
+    <?php if(isset($error) && $error == 'email-exists'): ?>
+        <div class='error'>
+             <p>That email address already appears to exist.</p> 
+        </div>
+        
+    <?php endif; ?>
+
+	
 	<div class="control-group">
 		<div class="controls">
 			<button type="submit" class="btn btn-primary">Sign Up</button>

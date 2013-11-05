@@ -4,7 +4,7 @@
 		<div class="span12">
 	    <h2>Welcome back <?=$user->first_name?>!</h2>
 		
-			<div  class ="row-fluid">
+			<div  class ="span6 row-fluid">
 	
 					<h3>Update your information here</h3>
 					<form class="form-horizontal" method='Post' action='/users/p_profile_update'>
@@ -32,22 +32,64 @@
 								<button type="submit" class="btn btn-primary">Update Info</button>
 							</div>
 							<br>
+							
+						<?php if(isset($error) && $error == 'blank-fields'): ?>
+        					<div>
+          						 <p>Oopsy. It appears you're missing required info. Please fill out all fields.</p> 
+        					</div>
+        
+
+   						<?php endif; ?>
+
+
+					    <?php if(isset($error) && $error == 'email-exists'): ?>
+        					<div class='error'>
+             					<p>That email address already appears to exist.</p> 
+       						 </div>
+        
+    					<?php endif; ?>
+
 						</div>
 					</form>
+				
+				
 					<br>
-		<h4>Add a photo</h4>
+					
+					
+			<h4>Add a photo</h4>
 
-			<form action="/users/profile_photo" method="post" enctype="multipart/form-data" >
-			<input type="file" name="avatar"> <input type='submit'>				
-			</form>
-			
-			</div>
-	
+				<form action="/users/profile_photo" method="post" enctype="multipart/form-data" >
+				<input type="file" name="avatar"> <input type='submit'>				
+				</form>
+		 </div>
+		 
+		 
+		 
+		<div  class ="span6 row-fluid">
+		<h4>Post History</h4>
+		<?php foreach ($posts as $post): ?>
 
-</form>	
-			</div>
+			<article>
+
+	 		   <h3><?=$post['first_name']?> <?=$post['last_name']?> posted:</h3>
+
+	  		  <p><?=$post['content']?></p>
+
+	  		 <time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
+	        <?=Time::display($post['created'])?>
+	  		  </time>
+
+			</article>
+
+
+		<?php endforeach; ?>
+		
+		
+		</div>
+	        
 		</div>
 	</div>
+	
 <?php else: ?>
     <h1>No user specified</h1>
 <?php endif; ?>
