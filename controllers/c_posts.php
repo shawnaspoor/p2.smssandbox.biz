@@ -32,6 +32,30 @@ class posts_controller extends base_controller {
 
 		echo $this->template;
 	}
+	
+
+	public function user_index() {
+	
+		$this->template->content = View::instance('v_posts_user_index');
+		$this->template->title = "Users post index";
+		
+		$q = "SELECT
+				posts.content,
+				posts.created
+				FROM posts
+				WHERE posts.user_id= ".$this->user->user_id;
+		
+	
+		$posts = DB::instance(DB_NAME)->select_rows($q);
+
+		$this->template->content->posts = $posts;
+
+		echo $this->template;
+	
+	
+	
+	
+	}
 
 	public function index() {
 
