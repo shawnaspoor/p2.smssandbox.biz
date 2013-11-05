@@ -3,7 +3,7 @@
 	<div class="row-fluid">
 		<div class="span12">
 	    <h2>Welcome back <?=$user->first_name?>!</h2>
-			<img src="/uploads/avatars/".$this->user->user_id />
+			<img src="/uploads/avatars/".$user_id />
 			<div  class ="row-fluid span6">
 	
 					<h3>Update your information here</h3>
