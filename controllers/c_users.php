@@ -28,10 +28,15 @@
 
 	
 
-		public function signup() {
+		public function signup($error = NULL) {
 			#Setup the view
 			$this->template->content = View::instance('v_users_signup');
 			echo $this->template->title ="Sign Up";
+			
+			#If there is an issue with the signup this will update the view
+			$this->template->content->error = $error;
+      	  	
+      	  	
 			#render the view
 			echo $this->template;
 
@@ -42,44 +47,97 @@
 		public function p_signup() {
 
 
-			#$this->userObj->confirm_unique_email($email);
+		  #Checking for blank fields
+        	foreach($_POST as $field => $value) {
+            	if(empty($value))  {
+                	#If any fields are blank, send error message
+                	Router::redirect('/users/signup/blank-fields');  
+            		}
+        		}       
 
-
-			foreach($_POST as $field_name => $value) { 
-	            // If any field was blank, add a message to the error View variable
-	            if($value == "") {
-	                $error = true;
-	                
-	                echo 'All fields are required.';
-	            }
-	        }
-
-			$_POST['created'] = Time::now();
-			$_POST['password'] =sha1(PASSWORD_SALT.$_POST['password']);
-
-			$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
+       		 #checking to see if the email already exists in the db
+       		 $exists = DB::instance(DB_NAME)->select_field("SELECT email FROM users WHERE email = '" . $_POST['email'] . "'");
+			
+			#if that email address does already exist
+			if($exists) {
+				Router::redirect('/users/signup/email-exists');
+			}
+				
+			else {	
+				
+				     	
+        			#DB info not submitted by the user
+        			$_POST['created'] = Time::now();
+					$_POST['modified'] = Time::now();
+			
+					#encript password and token
+					$_POST['password'] =sha1(PASSWORD_SALT.$_POST['password']);
+					$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
  			
- 			#echo"<pre>";
-			#print_r($_POST);
-			#echo"<pre>";
+ 					#echo"<pre>";
+					#print_r($_POST);
+					#echo"<pre>";
 
 			
 
 
 
-			 $users_id = DB::instance(DB_NAME)->insert("users", $_POST);
+					$users_id = DB::instance(DB_NAME)->insert("users", $_POST);
 
-			Router::redirect('/users/login');
+					Router::redirect('/users/login');
+
+			}
+		}
+		
+		
+
+		public function profile($error = NULL) {
+
+			if(!$this->user) {
+
+				Router::redirect('/users/membersonly');
+			}
+
+          
+			#setup the view
+			$this->template->content = View::instance('v_users_profile');
+			#give the page a title
+			$this->template->title = "Profile of ".$this->user->first_name;
+			
+			#If there is an issue with the signup this will update the view
+			$this->template->content->error = $error;
+			
+
+			echo $this->template;
+
 
 		}
 
 
 
+
 		public function p_profile_update() {
 			
-			echo"<pre>";
-			print_r($this->user);
-			echo"<pre>";
+			#echo"<pre>";
+			#print_r($this->user);
+			#echo"<pre>";
+			
+			foreach($_POST as $field => $value) {
+            	if(empty($value))  {
+                	#If any fields are blank, send error message
+                	Router::redirect('/users/profile/blank-fields');  
+            		}
+        		}       
+
+       		 #checking to see if the email already exists in the db
+       		 $exists = DB::instance(DB_NAME)->select_field("SELECT email FROM users WHERE email = '" . $_POST['email'] . "'");
+			
+			#if that email address does already exist
+			if($exists) {
+				Router::redirect('/users/profile/email-exists');
+			}
+				
+			else {	
 
 			$data = Array(
 
@@ -93,28 +151,28 @@
 	        $user_id = DB::instance(DB_NAME)->update_or_insert_row("users", $data);
 			
 			Router::redirect('/users/profile');
-
+			}
 		}
 
 
 		public function profile_photo () {
 
-			if ($_FILES['avatar'] === false) 
+			if ($_FILES['avatar']['error'] == 0)
 			{
-				$image = Upload::upload($_FILES, "/uploads/avatar/", array("gif", "jpeg", "jpg", "png"), $this->user->user_id);
+				$avatar = Upload::upload($_FILES, "/uploads/avatar/", array("gif", "jpeg", "jpg", "png"), $this->user->user_id);
 
-				if($image == "Invalid File Type") {
+				if($avatar == "Invalid File Type") {
 					Router::redirect("/users/profile/error");
 				}
 			
 			else {
 
-				$data = array("avatar"=>$image);
+				$data = Array("avatar" => $avatar);
 				DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = ".$this->user->user_id);
 
-				$imgObj = new Image(APP_PATH."/uploads/avatar/".$image);	
+				$imgObj = new Image(APP_PATH."uploads/avatars/".$avatar);	
 				$imgObj->get_optimal_crop(180, 180);
-				$imgObj->save_image(APP_PATH."/uploads/avatar/".$image);	
+				$imgObj->save_image(APP_PATH."uploads/avatars/".$avatar);	
 				echo $imgObj->exists(TRUE);
 				}
 			}
@@ -126,14 +184,16 @@
 		        // Redirect back to the profile page
 		        router::redirect('/users/profile'); 
 		    }  
+		    
+		    
 
-		    public function profile_error() {
+	    public function profile_error() {
+	    
+			$this->template->content=View::instance('v_users_profile_error');
+			$this->template->title = "Profile Error";
 
-		    	$this->template->content=View::instance('v_users_profile_error');
-		    	$this->template->title = "Profile Error";
-
-		    	echo $this->template;
-		    }
+			echo $this->template;
+		}
 		
 	
 				
@@ -208,30 +268,6 @@
 
 		}
 
-
-
-		public function profile($user=NULL) {
-
-			if(!$this->user) {
-
-				Router::redirect('/users/membersonly');
-			}
-			 	
-			echo '<pre>';
-			print_r($this->user);
-			echo '</pre>';
-
-          
-			#setup the view
-			$this->template->content = View::instance('v_users_profile');
-			#give the page a title
-			$this->template->title = "Profile of ".$this->user->first_name;
-			
-
-			echo $this->template;
-
-
-		}
 
 		public function membersonly() {
 			#setup the view
