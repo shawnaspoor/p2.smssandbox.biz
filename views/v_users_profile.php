@@ -18,13 +18,13 @@
 						<div class="control-group">
 							<label class ="control-label" for="inputLastName">Last Name &nbsp;</label>
 							<div class="controls">
-								<input type='text'id="inputLastName" name='last_name' placeholder='<?php echo $user->last_name; ?>'>
+								<input type='text' id="inputLastName" name='last_name' placeholder='<?php echo $user->last_name; ?>'>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class ="control-label" for="inputEmail">Email  &nbsp;</label>
 							<div class="controls">
-								<input type='text'id="inputEmail" name='email' placeholder='<?php echo $user->email; ?>'>
+								<input type='text' id="inputEmail" name='email' placeholder='<?php echo $user->email; ?>'>
 							</div>
 						</div>
 						
@@ -73,8 +73,8 @@
 		
 			 
 					<form action="/users/profile_photo" method="post" enctype="multipart/form-data" >
-					<button class="btn btn-default" type="file" name="avatar">Find the image</button>
-					<button class="btn btn-success" type='submit'>Show the World!</button>
+					<input class="btn btn-default" type="file" name="avatar">
+					<input class="btn btn-success" type='submit'>
 					</form>
 		
 				</div>
