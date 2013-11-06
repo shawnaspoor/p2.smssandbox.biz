@@ -183,11 +183,11 @@
 				$data = Array("avatar" => $avatar);
 				DB::instance(DB_NAME)->update("users", $data, "WHERE user_id = ".$this->user->user_id);
 
-				#resize the image
-				$imgObj = new Image(APP_PATH."/uploads/avatars/".$avatar);	
-				$imgObj->get_optimal_crop(180, 180);
-				$imgObj->save_image(APP_PATH."/uploads/avatars/".$avatar);	
-				//echo $imgObj->display;
+				#resize the image - could not get this to work did it with css
+				//$imgObj = new Image(APP_PATH."/uploads/avatars/".$avatar);	
+				//$imgObj->resize(180, 180);
+				//$imgObj->save_image(APP_PATH."/uploads/avatars/".$avatar);	
+				//$imgObj->display;
 				}
 			}
 			else 
@@ -198,6 +198,28 @@
 		        // Redirect back to the profile page
 		        router::redirect('/users/profile'); 
 		    }  
+
+
+		public function user_index() {
+	
+		$this->template->content = View::instance('v_profile_posts_index');
+
+		
+		$q = "SELECT
+				posts.content,
+				posts.created
+				FROM posts
+				WHERE user_id= ".$this->user->user_id;
+		
+	
+		$posts = DB::instance(DB_NAME)->select_rows($q);
+
+		$this->template->content->posts = $posts;
+
+		echo $this->template;
+	
+	
+		}
 		    
 		    
 

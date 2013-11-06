@@ -101,6 +101,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Posts<b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="/posts/add">Add a new post</a></li>
+                     <li><a href="/posts/user_index">Previous posts</a></li>
                     <li><a href="/posts/index">Feed</a></li>
                     <li><a href="/posts/users">Peeps to follow (not marshmallows, sorry)</a></li>
                   </ul> 

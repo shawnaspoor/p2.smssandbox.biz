@@ -3,7 +3,7 @@
 	<div class="row-fluid">
 		<div class="span12">
 	    <h2>Welcome back <?=$user->first_name?>!</h2>
-			<img src="/uploads/avatars/".$user_id />
+		
 			<div  class ="row-fluid span6">
 	
 					<h3>Update your information here</h3>
@@ -55,23 +55,25 @@
 				
 					<br>
 					
-					
-			<h4>Add a photo</h4>
-			<img src="<?= $user->avatar ?>" alt="<?=$user->first_name ?>">	
-			 
-				<form action="/users/profile_photo" method="post" enctype="multipart/form-data" >
-				<input type="file" name="avatar"> <input type='submit'>				
-				</form>
+
 		 </div>
 		 
 		 
 		 
 		<div  class =" row-fluid span6">
-		<h4>Post History</h4>
 
-		<!--<?=$profilepostsindex;?>-->
-		<?=include '/posts/user_index';?>
+							
+			<h4>Add a photo</h4>
+			
+			<?php if ($user->avatar =='example.gif'): ?>
+				display <img src="/uploads/avatars/example.gif" alt="Camera Shy Photo">';
+			 <?php endif; ?>
+				<img class="avatar" src="<?= $user->avatar ?>" alt="<?=$user->first_name ?>">
 		
+			 
+				<form action="/users/profile_photo" method="post" enctype="multipart/form-data" >
+				<input type="file" name="avatar"> <input type='submit'>				
+				</form>
 		
 		</div>
 	        
