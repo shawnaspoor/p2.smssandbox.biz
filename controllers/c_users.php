@@ -186,8 +186,8 @@
 				#resize the image
 				$imgObj = new Image(APP_PATH."/uploads/avatars/".$avatar);	
 				$imgObj->get_optimal_crop(180, 180);
-				//$imgObj->save_image(APP_PATH."/uploads/avatars/".$avatar);	
-				echo $imgObj->display;
+				$imgObj->save_image(APP_PATH."/uploads/avatars/".$avatar);	
+				//echo $imgObj->display;
 				}
 			}
 			else 

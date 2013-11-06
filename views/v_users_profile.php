@@ -57,7 +57,15 @@
 					
 					
 			<h4>Add a photo</h4>
-
+			<?php 
+			if ($avatar==null) {
+				echo '<img src="/uploads/avatars/example.gif" alt="Camera Shy Photo">';
+			}
+			else {
+				echo '<img src="<?= $user->avatar ?>" alt="<?=$user->first_name ?>">';
+			}
+			?>
+			 
 				<form action="/users/profile_photo" method="post" enctype="multipart/form-data" >
 				<input type="file" name="avatar"> <input type='submit'>				
 				</form>
@@ -68,7 +76,8 @@
 		<div  class =" row-fluid span6">
 		<h4>Post History</h4>
 
-		<?=$profilepostsindex;?>
+		<!--<?=$profilepostsindex;?>-->
+		<?=include '/posts/user_index';?>
 		
 		
 		</div>
