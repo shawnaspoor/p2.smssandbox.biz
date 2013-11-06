@@ -125,7 +125,7 @@
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit"><a href="#">About</a> <a href="#">Help</a> <a href="#">Privacy</a> <a href="#">Terms</a></p>
+        <p class="muted credit">+1 Features: Add a profile photo & Edit basic profile information</p>
       </div>
     </div>
 
