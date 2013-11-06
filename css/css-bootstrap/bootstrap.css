@@ -6185,4 +6185,10 @@ a.badge:focus {
   background-color: #f2f2f2;
 }
 
+.profile {
+  padding-left:15px;
+  padding-top:10px;
+  display: inline-block;
+}
+
 

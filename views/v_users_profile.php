@@ -4,9 +4,10 @@
 		<div class="span12">
 	    <h2>Welcome back <?=$user->first_name?>!</h2>
 		
-			<div  class ="row-fluid span6">
+			<div  class ="row-fluid">
+				<div class="profile span6">
 	
-					<h3>Update your information here</h3>
+					<h4>Update your information here</h4>
 					<form class="form-horizontal" method='Post' action='/users/p_profile_update'>
 						<div class="control-group">
 							<label class ="control-label" for="inputFirstName">First Name &nbsp;</label>
@@ -55,28 +56,30 @@
 				
 					<br>
 					
-
-		 </div>
+			</div>		
+		
 		 
 		 
 		 
-		<div  class =" row-fluid span6">
-
+		
+				<div class="profile span6">
 							
-			<h4>Add a photo</h4>
+					<h4>Who doesn't like a profile photo?</h4>
 			
-			<?php if ($user->avatar =='example.gif'): ?>
-				display <img src="/uploads/avatars/example.gif" alt="Camera Shy Photo">';
-			 <?php endif; ?>
-				<img class="avatar" src="<?= $user->avatar ?>" alt="<?=$user->first_name ?>">
+					<?php if ($user->avatar =='example.gif'): ?>
+						display <img src="/uploads/avatars/example.gif" alt="Camera Shy Photo">';
+					 <?php endif; ?>
+					<img class="avatar" src="<?= $user->avatar ?>" alt="<?=$user->first_name ?>"><br> <br>
 		
 			 
-				<form action="/users/profile_photo" method="post" enctype="multipart/form-data" >
-				<input type="file" name="avatar"> <input type='submit'>				
-				</form>
+					<form action="/users/profile_photo" method="post" enctype="multipart/form-data" >
+					<button class="btn btn-default" type="file" name="avatar">Find the image</button>
+					<button class="btn btn-success" type='submit'>Show the World!</button>
+					</form>
 		
-		</div>
-	        
+				</div>
+	     	
+			</div>
 		</div>
 	</div>
 	
