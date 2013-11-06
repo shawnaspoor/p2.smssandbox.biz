@@ -4,25 +4,25 @@
 	<div class="control-group">
 		<label class ="control-label" for="inputFirstName">First Name &nbsp; </label>
 		<div class="controls">
-			<input type='text'id="inputFirstName" name='first_name'>
+			<input type='text' id="inputFirstName" name='first_name'>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class ="control-label" for="inputLastName">Last Name &nbsp;</label>
 		<div class="controls">
-			<input type='text'id="inputLastName" name='last_name'>
+			<input type='text' id="inputLastName" name='last_name'>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class ="control-label" for="inputEmail">Email &nbsp;</label>
 		<div class="controls">
-			<input type='text'id="inputEmail" name='email'>
+			<input type='text' id="inputEmail" name='email'>
 		</div>
 	</div>
 	<div class="control-group">
 		<label class ="control-label" for="inputPassword">Password &nbsp;</label>
 		<div class="controls">
-			<input type='password'id="inputPassword" name='password'>
+			<input type='password' id="inputPassword" name='password'>
 		</div>
 	</div>
 	
