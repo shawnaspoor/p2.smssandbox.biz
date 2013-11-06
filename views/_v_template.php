@@ -125,7 +125,7 @@
 
     <div id="footer">
       <div class="container">
-        <p class="muted credit">+1 Features: Add a profile photo & Edit basic profile information</p>
+        <p class="muted credit">+1 Features: Add a profile photo & edit basic profile information</p>
       </div>
     </div>
 

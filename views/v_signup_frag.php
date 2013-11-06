@@ -1,5 +1,3 @@
-
-
 <h2>Signup</h2>
 
 <form class="form-horizontal" method="Post" action="/users/p_signup">

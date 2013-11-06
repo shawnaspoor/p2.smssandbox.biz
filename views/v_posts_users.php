@@ -1,5 +1,3 @@
-
-
 <?php foreach ($users as $user): ?>
 	<!-- list the site uers names-->
 	<div class = "follow">

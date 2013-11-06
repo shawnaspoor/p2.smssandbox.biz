@@ -1,5 +1,3 @@
-
-
 <h2> Login</h2>
 <form  class="form-horizontal" method="POST" action="/users/p_login">
 	<div class="control-group">
