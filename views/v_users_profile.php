@@ -57,14 +57,7 @@
 					
 					
 			<h4>Add a photo</h4>
-			<?php 
-			if ($avatar==null) {
-				echo '<img src="/uploads/avatars/example.gif" alt="Camera Shy Photo">';
-			}
-			else {
-				echo '<img src="<?= $user->avatar ?>" alt="<?=$user->first_name ?>">';
-			}
-			?>
+			<img src="<?= $user->avatar ?>" alt="<?=$user->first_name ?>">	
 			 
 				<form action="/users/profile_photo" method="post" enctype="multipart/form-data" >
 				<input type="file" name="avatar"> <input type='submit'>				
