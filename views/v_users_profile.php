@@ -66,7 +66,7 @@
 							
 					<h4>Who doesn't like a profile photo?</h4>
 			
-					<?php if ($user->avatar =='example.gif'): ?>
+					<?php if ($user->avatar =='placeholder.jpg'): ?>
 						display <img src="/uploads/avatars/example.gif" alt="Camera Shy Photo">';
 					 <?php endif; ?>
 					<img class="avatar" src="<?= $user->avatar ?>" alt="<?=$user->first_name ?>"><br> <br>
