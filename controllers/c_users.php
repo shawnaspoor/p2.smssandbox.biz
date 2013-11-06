@@ -31,7 +31,7 @@
 		public function signup($error = NULL) {
 			#Setup the view
 			$this->template->content = View::instance('v_users_signup');
-			echo $this->template->title ="Sign Up";
+			$this->template->title ="Sign Up";
 			
 			#If there is an issue with the signup this will update the view
 			$this->template->content->error = $error;
