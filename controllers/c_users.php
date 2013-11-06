@@ -11,7 +11,7 @@
 		public function index() {
 
 			if($this->user) {
-
+			#redirects users to their profile page if they go to the homepage	
         	Router::redirect('/users/profile');
 
         	}
@@ -73,17 +73,11 @@
 					#encript password and token
 					$_POST['password'] =sha1(PASSWORD_SALT.$_POST['password']);
 					$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
- 			
- 					#echo"<pre>";
-					#print_r($_POST);
-					#echo"<pre>";
 
-			
-
-
-
+					#sotre the information into a var
 					$users_id = DB::instance(DB_NAME)->insert("users", $_POST);
 
+					#send them to a page so they can login and get postin
 					Router::redirect('/users/login');
 
 			}
@@ -93,6 +87,7 @@
 
 		public function profile($error = NULL) {
 
+			#if statement determines if the user has the rights to access the content. If they don't they get redirect to an error message
 			if(!$this->user) {
 
 				Router::redirect('/users/membersonly');
@@ -117,11 +112,8 @@
 
 
 		public function p_profile_update() {
-			
-			#echo"<pre>";
-			#print_r($this->user);
-			#echo"<pre>";
-			
+
+			#this is the error checking for the profile updates so that people don't feed in blank fields or duplicate email address			
 			foreach($_POST as $field => $value) {
             	if(empty($value)  || ctype_space($value))  {
                 	#If any fields are blank, send error message
@@ -139,6 +131,7 @@
 				
 			else {	
 
+			#create array based on what the users input to feed into the db	
 			$data = Array(
 
 				"user_id" => $this->user->user_id, 
@@ -147,9 +140,10 @@
 				"email" => $_POST['email']
 				);
 
-
+			#insert into the db
 	        $user_id = DB::instance(DB_NAME)->update_or_insert_row("users", $data);
 			
+			#refresh the page once the update is made
 			Router::redirect('/users/profile');
 			}
 		}
@@ -202,10 +196,11 @@
 		    
 
 	    public function profile_error() {
-	    
+
+	    	#setup the view
 			$this->template->content=View::instance('v_users_profile_error');
 			$this->template->title = "Profile Error";
-
+			#render the view
 			echo $this->template;
 		}
 		
@@ -230,10 +225,6 @@
 
 		public function p_login() {
 
-
- 			#echo"<pre>";
-			#print_r($_POST);
-			#echo"<pre>";
 			
 			#sanitize input to stop SQL attacks
 			$_POST = DB::instance(DB_NAME)->sanitize($_POST);
@@ -301,70 +292,3 @@
 } #eoc
 
 
-#shit I probably don't need but who knows.
-#from profile()
-			#setup the client fild head
-			/* $client_files_head = Array(
-				'/css/profile.css',
-				'/css/master.css'
-				);
-			$this->template->client_files_head = Utils::load_client_files($client_files_head);
-			#setup the client fild body
-			$client_files_body = Array(
-				'/css/profile.js',
-				'/css/master.js'
-				);
-			$this->template->client_files_body = Utils::load_client_files($client_files_body);
-
-
-			#pass the data to the view
-			$this->template->content->user_name=$user_name;
-
-
-			
-			$view = View::instance('v_users_profile');	
-			$view->user = $user;
-			echo $view;
-
-			
-			if($user_name == null) {
-				echo "No user specified";
-			}
-			else {
-				echo "This is the profile ".$user_name;
-			}			*/
-
-			/*$q = "SELECT
-				users.first_name,
-				users.last_name,
-				users.email,
-				users.user_id
-				FROM users
-				WHERE user_id=".$this->user->user_id;
-
-				$users = DB::instance(DB_NAME)->select_rows($q);
-
-				
-
-			
-			$_POST['password'] =sha1(PASSWORD_SALT.$_POST['password']);
-
-			$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
- 			
- 			
-
-			 $user_id = DB::instance(DB_NAME)->insert("users", $_POST);
-
-			 */
-
-
-			/* $q = "SELECT
-				users.first_name,
-				users.last_name,
-				users.email
-				FROM users
-				WHERE user_id=".$this->user->user_id;
-
-			$users = DB::instance(DB_NAME)->select_rows($q);
-			
-			*/

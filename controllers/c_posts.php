@@ -12,24 +12,28 @@ class posts_controller extends base_controller {
     }
 
 	public function add() {
-
+		#setup the view
 		$this->template->content = View::instance('v_posts_add');
 		$this->template->title = "New Post";
+		#render the view
 		echo $this->template;
 
 	}
 
 	public function p_add() {
+		#setup the view
 		$this->template->content = View::instance('v_posts_padd');
 		$this->template->title = "Post Added";
 
+		#assigning values to columns that do not get input on the front end
 		$_POST['user_id']  = $this->user->user_id;
 		$_POST['created']  = Time::now();
 		$_POST['modified'] = Time::now();
 
-
+		#feeding it to the database
 		DB::instance(DB_NAME)->insert('posts', $_POST);
 
+		#render the template
 		echo $this->template;
 	}
 	
@@ -37,11 +41,11 @@ class posts_controller extends base_controller {
 	
 
 	public function index() {
-
+		#setup the view
 		$this->template->content = View::instance('v_posts_index');
 		$this->template->title = "Posts index";
 
-		
+		#query that pulls all the info together from the db
    		$q = "SELECT 
 	            posts.content,
 	            posts.created,
@@ -56,10 +60,13 @@ class posts_controller extends base_controller {
 	            ON posts.user_id = users.user_id
 	        WHERE users_users.user_id = ".$this->user->user_id;
 
+	        #grab the rows from the db based on the query
 			$posts = DB::instance(DB_NAME)->select_rows($q);
 
+			#give $posts a definition
 			$this->template->content->posts = $posts;
 
+			#render the template
 			echo $this->template;
 
 
@@ -98,19 +105,22 @@ class posts_controller extends base_controller {
 	}
 
 	public function user_index() {
-	
+		
+		#setup the view
 		$this->template->content = View::instance('v_posts_user_index');
 		$this->template->title = "Users Posts";
 		
+		#create the query to pull the posts from the db
 		$q = "SELECT
 				posts.content,
 				posts.created
 				FROM posts
 				WHERE user_id= ".$this->user->user_id;
 		
-	
+		#actually pull the posts from the db
 		$posts = DB::instance(DB_NAME)->select_rows($q);
 
+		#store the input from the db into this var
 		$this->template->content->posts = $posts;
 
 		echo $this->template;
