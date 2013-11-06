@@ -99,7 +99,7 @@ class posts_controller extends base_controller {
 
 	public function user_index() {
 	
-		$this->template->content = View::instance('v_profile_posts_index');
+		$this->template->content = View::instance('v_posts_user_index');
 
 		
 		$q = "SELECT

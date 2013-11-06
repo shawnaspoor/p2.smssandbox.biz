@@ -107,9 +107,6 @@
 			#If there is an issue with the signup this will update the view
 			$this->template->content->error = $error;
 			
-			#posts feed 	
-			$this->template->content->profilepostsindex = View::instance('v_profile_posts_index');   	
-
 			#render
 			echo $this->template;
 
@@ -200,26 +197,7 @@
 		    }  
 
 
-		public function user_index() {
-	
-		$this->template->content = View::instance('v_profile_posts_index');
-
 		
-		$q = "SELECT
-				posts.content,
-				posts.created
-				FROM posts
-				WHERE user_id= ".$this->user->user_id;
-		
-	
-		$posts = DB::instance(DB_NAME)->select_rows($q);
-
-		$this->template->content->posts = $posts;
-
-		echo $this->template;
-	
-	
-		}
 		    
 		    
 
