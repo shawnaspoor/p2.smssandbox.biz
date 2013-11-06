@@ -100,7 +100,7 @@ class posts_controller extends base_controller {
 	public function user_index() {
 	
 		$this->template->content = View::instance('v_posts_user_index');
-
+		$this->template->title = "Users Posts";
 		
 		$q = "SELECT
 				posts.content,
